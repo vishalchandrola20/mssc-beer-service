@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import vishal.springframework.msscbeerservice.services.BeerService;
 import vishal.springframework.msscbeerservice.web.model.BeerDto;
 import vishal.springframework.msscbeerservice.web.model.BeerStyleEnum;
 
@@ -24,6 +26,9 @@ class BeerControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
+    @MockBean
+    BeerService beerService;
+
     @Test
     void getBeerById() throws Exception {
 
@@ -37,7 +42,7 @@ class BeerControllerTest {
 
         BeerDto beerDto = BeerDto.builder()
                 .beerName("Bira")
-                .beerStyleEnum(BeerStyleEnum.ALE)
+                .beerStyle(BeerStyleEnum.ALE)
                 .upc(new Long(100))
                 .price(new BigDecimal(260)).build();
         String beerDtoJson = objectMapper.writeValueAsString(beerDto);
@@ -52,7 +57,7 @@ class BeerControllerTest {
     void updateBeerById() throws Exception {
         BeerDto beerDto = BeerDto.builder()
                 .beerName("Bira")
-                .beerStyleEnum(BeerStyleEnum.ALE)
+                .beerStyle(BeerStyleEnum.ALE)
                 .upc(new Long(100))
                 .price(new BigDecimal(260)).build();
         String beerDtoJson = objectMapper.writeValueAsString(beerDto);
